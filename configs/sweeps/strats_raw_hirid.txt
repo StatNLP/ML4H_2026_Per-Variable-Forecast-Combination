@@ -1,0 +1,1 @@
+--model strats_raw --train-h5 data/dataset/hirid_seed42_train__all_4h_raw.h5 --val-h5 data/dataset/hirid_seed42_val__all_4h_raw.h5 --run-name strats_raw_hirid_4h_d128 --seed 42 --d-model 128 --n-heads 4 --n-layers 2 --dropout 0.1 --epochs 200 --patience-lr 3 --patience-stop 6 --batch-size 64 --lr 3e-4 --huber-delta 1.0 --loss mse --schedule schedule_di

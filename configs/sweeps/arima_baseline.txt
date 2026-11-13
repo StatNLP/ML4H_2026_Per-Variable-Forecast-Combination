@@ -1,0 +1,7 @@
+# ARIMA(1,1,0) baseline — fast CLS, full val
+
+--model arima --train-h5 data/dataset/mimic_iii_seed42_train__all_4h_fwd.h5 --val-h5 data/dataset/mimic_iii_seed42_val__all_4h_fwd.h5 --run-name arima_mimic_iii_4h --seed 42 --epochs 1 --max-steps-per-epoch 1 --batch-size 256 --loss mse --schedule none
+--model arima --train-h5 data/dataset/mimic_iv_seed42_train__all_4h_fwd.h5 --val-h5 data/dataset/mimic_iv_seed42_val__all_4h_fwd.h5 --run-name arima_mimic_iv_4h --seed 42 --epochs 1 --max-steps-per-epoch 1 --batch-size 256 --loss mse --schedule none
+--model arima --train-h5 data/dataset/eicu_seed42_train__all_4h_fwd.h5 --val-h5 data/dataset/eicu_seed42_val__all_4h_fwd.h5 --run-name arima_eicu_4h --seed 42 --epochs 1 --max-steps-per-epoch 1 --batch-size 256 --loss mse --schedule none
+--model arima --train-h5 data/dataset/hirid_seed42_train__all_4h_fwd.h5 --val-h5 data/dataset/hirid_seed42_val__all_4h_fwd.h5 --run-name arima_hirid_4h --seed 42 --epochs 1 --max-steps-per-epoch 1 --batch-size 256 --loss mse --schedule none
+--model arima --train-h5 data/dataset/umm_seed42_train__all_4h_fwd.h5 --val-h5 data/dataset/umm_seed42_val__all_4h_fwd.h5 --run-name arima_umm_4h --seed 42 --epochs 1 --max-steps-per-epoch 1 --batch-size 256 --loss mse --schedule none

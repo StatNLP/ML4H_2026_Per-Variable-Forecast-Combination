@@ -1,0 +1,3 @@
+# eicu — Staniek-exact reproduction: d512/8h/2l/dr0.2, MSE, student forcing
+
+--model dense_autoregressive --train-h5 data/dataset/eicu_seed42_train__all_4h_fwd.h5 --val-h5 data/dataset/eicu_seed42_val__all_4h_fwd.h5 --run-name paper_repro_eicu_d512 --seed 42 --d-model 512 --n-heads 8 --n-layers 2 --dropout 0.2 --epochs 200 --patience-lr 3 --patience-stop 6 --batch-size 256 --lr 3e-4 --huber-delta 1.0 --loss mse --schedule student --max-steps-per-epoch 200

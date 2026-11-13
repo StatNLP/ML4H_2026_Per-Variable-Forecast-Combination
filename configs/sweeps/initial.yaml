@@ -1,0 +1,31 @@
+# Initial Paper-1 reproduction sweep — see docs/2605_tsf_model.md §3.4
+name: initial_grid
+description: |
+  First exploratory sweep on UMM + MIMIC-III with the SOFA feature set.
+  Compares dlinear vs dense_autoregressive across two losses and three
+  learning rates. Schedule fixed to schedule_di (direct incremental
+  scheduled sampling) per Paper-1 finding.
+
+fixed:
+    # paths are formatted against the axes below via .format(**combo)
+    train_h5:      "data/dataset/{dataset}_seed42_train__{tag}.h5"
+    val_h5:        "data/dataset/{dataset}_seed42_val__{tag}.h5"
+    epochs:        200
+    patience_lr:   3
+    patience_stop: 6
+    batch_size:    256
+    schedule:      schedule_di
+    huber_delta:   1.0
+    dropout:       0.1
+
+axes:
+    dataset: [umm, mimic_iii]
+    tag:     [sofa_first_fwd]
+    model:   [dlinear, dense_autoregressive]
+    loss:    [mse, huber_per_var]
+    lr:      [1.0e-4, 3.0e-4, 1.0e-3]
+    d_model: [128]
+    d_ff:    [256]
+    n_heads: [4]
+    n_layers: [2]
+# 2 × 1 × 2 × 2 × 3 = 24 runs

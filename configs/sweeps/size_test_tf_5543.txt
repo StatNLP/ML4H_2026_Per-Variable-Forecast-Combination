@@ -1,0 +1,8 @@
+# Controlled dataset-size test for MLHC-2024 claim 3 (student vs teacher forcing).
+# MIMIC-IV train subsampled by stay to HiRID size (5543) and UMM size (2889);
+# val is the FULL MIMIC-IV val split, so TRAINING SIZE is the only thing that varies.
+# HP pinned to the MIMIC-IV val-selected winner (hpsf_mimic_iv_88fb076a, d512 L2/3).
+# Prediction (doc section 15.7 / 34): at HiRID size MIMIC-IV should flip to preferring
+# teacher forcing. Patience left at the default on purpose.
+--model dense_autoregressive --d-model 512 --n-layers 2 --n-layers-dec 3 --n-heads 8 --d-ff 1024 --dropout 0.0 --lr 1e-4 --batch-size 256 --loss mse --weight-decay 1e-5 --epochs 200 --schedule student --train-h5 data/dataset/mimic_iv_s5543_seed42_train__all_4h_fwd.h5 --val-h5 data/dataset/mimic_iv_seed42_val__all_4h_fwd.h5 --run-name sizetf_s5543_student
+--model dense_autoregressive --d-model 512 --n-layers 2 --n-layers-dec 3 --n-heads 8 --d-ff 1024 --dropout 0.0 --lr 1e-4 --batch-size 256 --loss mse --weight-decay 1e-5 --epochs 200 --schedule teacher --train-h5 data/dataset/mimic_iv_s5543_seed42_train__all_4h_fwd.h5 --val-h5 data/dataset/mimic_iv_seed42_val__all_4h_fwd.h5 --run-name sizetf_s5543_teacher

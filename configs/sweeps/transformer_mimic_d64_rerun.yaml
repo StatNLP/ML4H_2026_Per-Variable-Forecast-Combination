@@ -1,0 +1,28 @@
+name: transformer_mimic
+description: |
+  Re-run of d_model=64 jobs that timed out at 8h.
+  Increased time limit to 16h. Excludes 3 combos that completed OK.
+
+fixed:
+    train_h5:      "data/dataset/mimic_iii_seed42_train__all_first_fwd.h5"
+    val_h5:        "data/dataset/mimic_iii_seed42_val__all_first_fwd.h5"
+    model:         dense_autoregressive
+    dataset:       mimic_iii
+    tag:           all_first_fwd
+    epochs:        200
+    patience_lr:   3
+    patience_stop: 6
+    batch_size:    256
+    schedule:      schedule_di
+    huber_delta:   1.0
+    n_heads:       4
+    lr:            3.0e-4
+    loss:          huber_per_var
+    d_model:       64
+
+axes:
+    n_layers: [1, 2, 4]
+    dropout:  [0.0, 0.1, 0.3]
+    seed:     [42, 43, 44]
+# 3 × 3 × 3 = 27 total, minus 3 already completed = 24 submitted
+# Completed OK (excluded manually after submit): seed42/n_layers2/drop0.0, seed42/n_layers2/drop0.3, seed43/n_layers4/drop0.0

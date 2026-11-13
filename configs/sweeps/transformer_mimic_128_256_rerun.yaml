@@ -1,0 +1,26 @@
+name: transformer_mimic
+description: |
+  Re-run of d_model=128 (2 remaining) and all d_model=256 with 16h time limit.
+
+fixed:
+    train_h5:      "data/dataset/mimic_iii_seed42_train__all_first_fwd.h5"
+    val_h5:        "data/dataset/mimic_iii_seed42_val__all_first_fwd.h5"
+    model:         dense_autoregressive
+    dataset:       mimic_iii
+    tag:           all_first_fwd
+    epochs:        200
+    patience_lr:   3
+    patience_stop: 6
+    batch_size:    256
+    schedule:      schedule_di
+    huber_delta:   1.0
+    n_heads:       4
+    lr:            3.0e-4
+    loss:          huber_per_var
+
+axes:
+    d_model:  [128, 256]
+    n_layers: [1, 2, 4]
+    dropout:  [0.0, 0.1, 0.3]
+    seed:     [42, 43, 44]
+# 2 × 3 × 3 × 3 = 54 total, minus already-completed d_model=128 jobs

@@ -1,0 +1,31 @@
+# Transformer (dense_autoregressive) full-factorial sweep on MIMIC-III
+# 3 (d_model) × 3 (n_layers) × 3 (dropout) × 3 (seeds) = 81 runs
+# d_ff is auto-computed as 4×d_model by train_forecast.py (--d-ff ≤ 0)
+name: transformer_mimic
+description: |
+  Full-factorial Transformer sweep on MIMIC-III with all features.
+  Explores model width (d_model), depth (n_layers enc+dec), regularisation
+  (dropout), and seed reproducibility. lr fixed at 3e-4, loss=huber_per_var.
+
+fixed:
+    train_h5:      "data/dataset/mimic_iii_seed42_train__all_first_fwd.h5"
+    val_h5:        "data/dataset/mimic_iii_seed42_val__all_first_fwd.h5"
+    model:         dense_autoregressive
+    dataset:       mimic_iii
+    tag:           all_first_fwd
+    epochs:        200
+    patience_lr:   3
+    patience_stop: 6
+    batch_size:    256
+    schedule:      schedule_di
+    huber_delta:   1.0
+    n_heads:       4
+    lr:            3.0e-4
+    loss:          huber_per_var
+
+axes:
+    d_model:  [64, 128, 256]
+    n_layers: [1, 2, 4]
+    dropout:  [0.0, 0.1, 0.3]
+    seed:     [42, 43, 44]
+# 3 × 3 × 3 × 3 = 81 runs
